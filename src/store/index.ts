@@ -4,7 +4,10 @@ import Vuex from "vuex";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {},
+  state: {
+    airPressure: 60,
+    pistonShape: "Circular",
+  },
   mutations: {},
   actions: {},
   modules: {},
