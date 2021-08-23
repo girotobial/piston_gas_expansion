@@ -1,10 +1,5 @@
 import { Adiabatic, Isobaric } from "@/model/thermodynamics";
 
-test("Under Isobaric expansion the pressure should not change", () => {
-  const expansion = new Isobaric();
-  expect(expansion.endPressure(1, 1, 10)).toBe(1);
-});
-
 test("For an isobaric expansion the work done should be equal to the pressure multiplied by the change in pressure", () => {
   const expansion = new Isobaric();
   expect(expansion.workDone(1, 1, 10)).toBe(9);
