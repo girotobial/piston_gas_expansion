@@ -1,3 +1,3 @@
-import { conversion } from "./conversion";
-import { geometry } from "./geometry";
-import { mechanics } from "./mechanics";
+export * as conversion from "./conversion";
+export * as geometry from "./geometry";
+export * as mechanics from "./mechanics";
