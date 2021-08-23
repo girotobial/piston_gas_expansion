@@ -1,4 +1,6 @@
 export interface ThreeDimensionalShape {
+  width: number;
+  height: number;
   crossSectionArea(): number;
   volume(): number;
 }
@@ -6,6 +8,10 @@ export interface ThreeDimensionalShape {
 class Cylinder implements ThreeDimensionalShape {
   diameter: number;
   height: number;
+
+  get width() {
+    return this.diameter;
+  }
 
   constructor(diameter: number, height: number) {
     this.diameter = diameter;
@@ -36,12 +42,13 @@ class Cuboid implements ThreeDimensionalShape {
 }
 
 export const create3dShape = (
-  crossSection: string,
+  crossSection = "circular",
   width: number,
   height: number
 ): ThreeDimensionalShape => {
+  crossSection = crossSection.toLowerCase();
   switch (crossSection) {
-    case "Square":
+    case "square":
       return new Cuboid(width, height);
     default:
       return new Cylinder(width, height);
