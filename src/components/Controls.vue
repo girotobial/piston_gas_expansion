@@ -15,17 +15,17 @@
       <v-row>
         <v-col>
           <v-slider
-            v-model="$store.state.airPressure"
+            v-model="$store.state.bottlePressure"
             min="0"
             max="250"
             label="Bottle Pressure (PSI)"
             thumb-label
-            :color="airPressureColor"
+            :color="bottlePressureColor"
             track-color="grey"
           >
             <template v-slot:append>
               <v-text-field
-                v-model="$store.state.airPressure"
+                v-model="$store.state.bottlePressure"
                 type="number"
                 class="mt-0 pt-0"
                 style="width: 60px"
@@ -46,10 +46,10 @@ import Component from "vue-class-component";
 export default class Controls extends Vue {
   pistonShapeItems = ["Circular", "Square"];
 
-  get airPressureColor(): string {
-    const airPressure = this.$store.state.airPressure;
-    if (airPressure < 60) return "green";
-    if (airPressure < 150) return "orange";
+  get bottlePressureColor(): string {
+    const bottlePressure = this.$store.state.bottlePressure;
+    if (bottlePressure < 60) return "green";
+    if (bottlePressure < 150) return "orange";
     return "red";
   }
 }
