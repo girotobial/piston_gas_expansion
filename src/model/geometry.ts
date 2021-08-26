@@ -15,10 +15,10 @@ export class CircularCrossSection implements CrossSection {
     this.diameter = diameter;
   }
 
-  area() {
+  area(): number {
     return (0.5 * this.diameter) ** 2 * Math.PI;
   }
-  perimeter() {
+  perimeter(): number {
     return this.diameter * Math.PI;
   }
 }
@@ -29,10 +29,10 @@ export class SquareCrossSection implements CrossSection {
   constructor(width: number) {
     this.width = width;
   }
-  area() {
+  area(): number {
     return this.width ** 2;
   }
-  perimeter() {
+  perimeter(): number {
     return this.width * 4;
   }
 }
