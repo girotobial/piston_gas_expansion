@@ -16,8 +16,6 @@ const sigFigs = (value: number, sigFigs: number) => {
 };
 
 export class Isobaric implements Expansion {
-  constructor() { } // eslint-disable-line
-
   endPressure(startPressure: number, startVolume: number, endVolume: number): number { // eslint-disable-line
     return startPressure;
   }
