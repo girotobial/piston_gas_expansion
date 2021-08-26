@@ -8,8 +8,6 @@ class FakeCrossSection implements CrossSection {
   public areaCalled = false;
   public perimeterCalled = false;
 
-    constructor() { } // eslint-disable-line
-
   public area() {
     this.areaCalled = true;
     return this._area;
