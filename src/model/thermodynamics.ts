@@ -1,4 +1,4 @@
-interface Expansion {
+export interface Expansion {
   endPressure(
     startPressure: number,
     startVolume: number,
