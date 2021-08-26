@@ -42,6 +42,12 @@ export default class PvDiagram extends PvDiagramComponents {
 
   layout = {
     title: "PV Diagram",
+    xaxis: {
+      title: "Cylinder Volume (m^3)",
+    },
+    yaxis: {
+      title: "Cylinder Pressure (Pa)",
+    },
   };
 
   get volumes(): Array<number> {
