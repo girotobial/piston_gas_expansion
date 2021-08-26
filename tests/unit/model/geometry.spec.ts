@@ -1,4 +1,35 @@
-import { create3dShape } from "@/model/geometry";
+import {
+  create3dShape,
+  CircularCrossSection,
+  SquareCrossSection,
+} from "@/model/geometry";
+
+test("Circular cross section constructor", () => {
+  const crossSection = new CircularCrossSection(2);
+  expect(crossSection.width).toBe(2);
+});
+
+test("Circular cross section with width 8 has area of 16Pi", () => {
+  const crossSection = new CircularCrossSection(8);
+  expect(crossSection.area()).toBe(16 * Math.PI);
+});
+
+test("Circular cross section with width 4 has perimeter of 4 pi", () => {
+  expect(new CircularCrossSection(4).perimeter()).toBe(4 * Math.PI);
+});
+
+test("Square cross section constructor", () => {
+  const crossSection = new SquareCrossSection(2);
+  expect(crossSection.width).toBe(2);
+});
+
+test("Square cross section with width 4 has a perimeter of 16", () => {
+  expect(new SquareCrossSection(4).perimeter()).toBe(16);
+});
+
+test("Square cross section with width 8 has area of 64", () => {
+  expect(new SquareCrossSection(8).area()).toBe(64);
+});
 
 test("Create Cylinder with width 2, height 3", () => {
   const cylinder = create3dShape("circular", 2, 3);
