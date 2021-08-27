@@ -1,4 +1,4 @@
-import { pressure, length } from "@/model/conversion";
+import { pressure, length, volume } from "@/model/conversion";
 
 describe("pressure", () => {
   it("converts 1 PSI to 8694.76 Pascals", () => {
@@ -16,4 +16,13 @@ describe("length", () => {
   it("converts 1000 millimetres to 1 metre", () => {
     expect(length.millimetreToMetre(1000)).toBeCloseTo(1);
   });
+});
+
+describe("volume", () => {
+  it("converts 1m^3 to 1000cm^3", () => {
+    expect(volume.metersCubedToCubicCentimeters(1)).toBeCloseTo(1000);
+  }),
+    it("coverts 1000cm^3 to 1m^3", () => {
+      expect(volume.cubicCentimetersToMetersCubed(1000)).toBeCloseTo(1);
+    });
 });
