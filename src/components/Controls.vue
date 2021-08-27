@@ -15,6 +15,72 @@
       <v-row>
         <v-col>
           <v-slider
+            v-model="$store.state.piston.strokeLength"
+            min="0"
+            max="50"
+            label="Stroke Length (mm)"
+            thumb-label
+            :color="green"
+            track-color="grey"
+          >
+            <template v-slot:append>
+              <v-text-field
+                v-model="$store.state.piston.strokeLength"
+                type="number"
+                class="mt-0 pt-0"
+                style="width: 60px"
+              ></v-text-field>
+            </template>
+          </v-slider>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col>
+          <v-slider
+            v-model="$store.state.piston.tdcLength"
+            min="0"
+            max="50"
+            label="TDC Length (mm)"
+            thumb-label
+            :color="green"
+            track-color="grey"
+          >
+            <template v-slot:append>
+              <v-text-field
+                v-model="$store.state.piston.tdcLength"
+                type="number"
+                class="mt-0 pt-0"
+                style="width: 60px"
+              ></v-text-field>
+            </template>
+          </v-slider>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col>
+          <v-slider
+            v-model="$store.state.piston.boreWidth"
+            min="0"
+            max="50"
+            label="Bore Width (mm)"
+            thumb-label
+            :color="green"
+            track-color="grey"
+          >
+            <template v-slot:append>
+              <v-text-field
+                v-model="$store.state.piston.boreWidth"
+                type="number"
+                class="mt-0 pt-0"
+                style="width: 60px"
+              ></v-text-field>
+            </template>
+          </v-slider>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col>
+          <v-slider
             v-model="$store.state.bottle.pressure"
             min="0"
             max="250"
