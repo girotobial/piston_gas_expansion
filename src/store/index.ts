@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
-import { pressurePsiToPascal, millimetreToMetre } from "@/model/conversion";
+import { length, pressure } from "@/model/conversion";
 import {
   CircularCrossSection,
   CrossSection,
@@ -21,11 +21,13 @@ export default new Vuex.Store({
       pressure: 120,
       capacity: 2000,
     },
+    piston: {
+      boreWidth: 16,
+      tdcLength: 4,
+      strokeLength: 10,
+    },
     expansionMethod: "Adiabatic",
     pistonShape: "Circular",
-    boreWidth: 16,
-    tdcLength: 4,
-    strokeLength: 10,
   },
   mutations: {},
   actions: {},
@@ -33,18 +35,18 @@ export default new Vuex.Store({
   getters: {
     bottle: (state): Bottle => {
       return {
-        pressure: pressurePsiToPascal(state.bottle.pressure),
+        pressure: pressure.psiToPascal(state.bottle.pressure),
         capacity: state.bottle.capacity * 1e-6,
       };
     },
     boreWidth: (state) => {
-      return millimetreToMetre(state.boreWidth);
+      return length.millimetreToMetre(state.piston.boreWidth);
     },
     tdcLength: (state) => {
-      return millimetreToMetre(state.tdcLength);
+      return length.millimetreToMetre(state.piston.tdcLength);
     },
     strokeLength: (state) => {
-      return millimetreToMetre(state.strokeLength);
+      return length.millimetreToMetre(state.piston.strokeLength);
     },
     piston: (state, getters) => {
       const boreWidth = getters.boreWidth;

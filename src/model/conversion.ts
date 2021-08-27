@@ -1,7 +1,17 @@
-export const pressurePsiToPascal = (pressure: number): number => {
-  const pascal = pressure * 6894.76;
-  return Math.round(pascal * 100) / 100;
+const pascalPerPSI = 6894.76;
+
+export const pressure = {
+  psiToPascal: (pressure: number): number => {
+    return pressure * pascalPerPSI;
+  },
+
+  pascalToPSI: (pressure: number): number => {
+    return pressure / pascalPerPSI;
+  },
 };
-export const millimetreToMetre = (millimetre: number): number => {
-  return millimetre / 1000;
+
+export const length = {
+  millimetreToMetre: (millimetres: number): number => {
+    return millimetres / 1000;
+  },
 };
