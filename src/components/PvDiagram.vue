@@ -37,21 +37,33 @@ export default class PvDiagram extends PvDiagramComponents {
     return [
       {
         x: this.volumesCmCubed,
-        y: this.pressures,
+        y: this.pressuresPSI,
         type: "line",
       },
     ];
   }
 
-  layout = {
-    title: "PV Diagram",
-    xaxis: {
-      title: "Cylinder Volume (cm^3)",
-    },
-    yaxis: {
-      title: "Cylinder Pressure (PSI)",
-    },
-  };
+  get layout() {
+    return {
+      title: "PV Diagram",
+      xaxis: {
+        title: "Cylinder Volume (cm^3)",
+      },
+      yaxis: {
+        title: "Cylinder Pressure (PSI)",
+        range: [this.minYAxis(), Math.max(...this.pressuresPSI)],
+      },
+    };
+  }
+
+  minYAxis() {
+    let minPressures = Math.min(...this.pressuresPSI);
+    if (minPressures < 0) {
+      return minPressures;
+    } else {
+      return 0;
+    }
+  }
 
   get volumes(): Array<number> {
     const min_vol = this.$store.getters.piston.tdcVolume();
@@ -81,12 +93,20 @@ export default class PvDiagram extends PvDiagramComponents {
     let pressures = [];
 
     for (let volume of this.volumes) {
-      let pressurePascal =
-        expansionMethod.endPressure(startPressure, startVolume, volume) -
-        atmosphericPressurePa;
-      pressures.push(pressure.pascalToPSI(pressurePascal));
+      pressures.push(
+        expansionMethod.endPressure(startPressure, startVolume, volume)
+      );
     }
 
+    return pressures;
+  }
+
+  get pressuresPSI(): Array<number> {
+    let pressures: Array<number> = [];
+    for (let pressureItem of this.pressures) {
+      let relativePressure = pressureItem - atmosphericPressurePa;
+      pressures.push(pressure.pascalToPSI(relativePressure));
+    }
     return pressures;
   }
 }
