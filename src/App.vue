@@ -4,6 +4,7 @@
       <Controls class="controls" />
       <div class="results">{{ pascals }} Pa</div>
       <div class="results">{{ workDone }} Joules</div>
+      <PvDiagram class="pv" />
     </v-main>
   </v-app>
 </template>
@@ -11,6 +12,7 @@
 <script lang="ts">
 import Vue from "vue";
 import Controls from "@/components/Controls.vue";
+import PvDiagram from "@/components/PvDiagram.vue";
 import { Adiabatic } from "@/model/thermodynamics";
 
 export default Vue.extend({
@@ -18,6 +20,7 @@ export default Vue.extend({
 
   components: {
     Controls,
+    PvDiagram,
   },
   computed: {
     pascals() {
@@ -45,6 +48,10 @@ export default Vue.extend({
   float: left;
 }
 .results {
+  width: 75%;
+  float: left;
+}
+.pv {
   width: 75%;
   float: left;
 }

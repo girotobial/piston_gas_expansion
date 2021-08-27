@@ -9,6 +9,8 @@ import {
 } from "@/model/geometry";
 import { PistonBore } from "@/model/mechanics";
 
+import { Adiabatic, Isobaric, Expansion } from "@/model/thermodynamics";
+
 import { Bottle } from "@/interfaces";
 
 Vue.use(Vuex);
@@ -19,6 +21,7 @@ export default new Vuex.Store({
       pressure: 120,
       capacity: 2000,
     },
+    expansionMethod: "Adiabatic",
     pistonShape: "Circular",
     boreWidth: 16,
     tdcLength: 4,
@@ -57,6 +60,16 @@ export default new Vuex.Store({
       const strokeLength = getters.strokeLength;
 
       return new PistonBore(crossSection, tdcLength, strokeLength);
+    },
+    expansionMethod: (state): Expansion => {
+      switch (state.expansionMethod.toLowerCase()) {
+        default: {
+          return new Adiabatic();
+        }
+        case "isobaric": {
+          return new Isobaric();
+        }
+      }
     },
   },
 });
