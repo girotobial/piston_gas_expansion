@@ -35,7 +35,7 @@ export default new Vuex.Store({
   getters: {
     bottle: (state): Bottle => {
       return {
-        pressure: pressure.psiToPascal(state.bottle.pressure),
+        pressure: pressure.psiToPascal(state.bottle.pressure) + 101325,
         capacity: state.bottle.capacity * 1e-6,
       };
     },
