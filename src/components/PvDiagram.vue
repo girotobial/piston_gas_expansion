@@ -30,6 +30,7 @@ const PvDiagramComponents = Vue.extend({
 
 @Component
 export default class PvDiagram extends PvDiagramComponents {
+  //eslint-disable-next-line
   get trace() {
     return [
       {
