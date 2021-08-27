@@ -7,6 +7,8 @@ import Vue from "vue";
 import Component from "vue-class-component";
 import { Plotly } from "vue-plotly";
 
+import { volume, pressure, atmosphericPressurePa } from "@/model/conversion";
+
 const range = (start: number, end: number, step = 1): Array<number> => {
   let output = [];
 
@@ -34,7 +36,7 @@ export default class PvDiagram extends PvDiagramComponents {
   get trace() {
     return [
       {
-        x: this.volumes,
+        x: this.volumesCmCubed,
         y: this.pressures,
         type: "line",
       },
@@ -44,10 +46,10 @@ export default class PvDiagram extends PvDiagramComponents {
   layout = {
     title: "PV Diagram",
     xaxis: {
-      title: "Cylinder Volume (m^3)",
+      title: "Cylinder Volume (cm^3)",
     },
     yaxis: {
-      title: "Cylinder Pressure (Pa)",
+      title: "Cylinder Pressure (PSI)",
     },
   };
 
@@ -59,6 +61,18 @@ export default class PvDiagram extends PvDiagramComponents {
 
     return range(min_vol, max_vol, step);
   }
+
+  get volumesCmCubed(): Array<number> {
+    const volumesMetersCubed = this.volumes;
+    const cmCubedVolumes: Array<number> = [];
+
+    for (let volumeItem of volumesMetersCubed) {
+      cmCubedVolumes.push(volume.metersCubedToCubicCentimeters(volumeItem));
+    }
+
+    return cmCubedVolumes;
+  }
+
   get pressures(): Array<number> {
     const startPressure = this.$store.getters.bottle.pressure;
     const expansionMethod = this.$store.getters.expansionMethod;
@@ -67,9 +81,10 @@ export default class PvDiagram extends PvDiagramComponents {
     let pressures = [];
 
     for (let volume of this.volumes) {
-      pressures.push(
-        expansionMethod.endPressure(startPressure, startVolume, volume)
-      );
+      let pressurePascal =
+        expansionMethod.endPressure(startPressure, startVolume, volume) -
+        atmosphericPressurePa;
+      pressures.push(pressure.pascalToPSI(pressurePascal));
     }
 
     return pressures;
