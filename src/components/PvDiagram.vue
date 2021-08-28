@@ -8,6 +8,8 @@ import Component from "vue-class-component";
 import { Plotly } from "vue-plotly";
 
 import { volume, pressure, atmosphericPressurePa } from "@/model/conversion";
+import { PistonBore } from "@/model/mechanics";
+import { Expansion } from "@/model/thermodynamics";
 
 const range = (start: number, end: number, step = 1): Array<number> => {
   let output = [];
@@ -25,6 +27,12 @@ const range = (start: number, end: number, step = 1): Array<number> => {
 };
 
 const PvDiagramComponents = Vue.extend({
+  props: {
+    pistonBore: PistonBore,
+    expansion: Object,
+    bottle: Object,
+  },
+
   components: {
     Plotly,
   },
@@ -56,7 +64,7 @@ export default class PvDiagram extends PvDiagramComponents {
     };
   }
 
-  minYAxis() {
+  minYAxis(): number {
     let minPressures = Math.min(...this.pressuresPSI);
     if (minPressures < 0) {
       return minPressures;
@@ -66,8 +74,8 @@ export default class PvDiagram extends PvDiagramComponents {
   }
 
   get volumes(): Array<number> {
-    const min_vol = this.$store.getters.piston.tdcVolume();
-    const max_vol = this.$store.getters.piston.bdcVolume();
+    const min_vol = this.pistonBore.tdcVolume();
+    const max_vol = this.pistonBore.bdcVolume();
 
     const step = (max_vol - min_vol) / 200;
 
@@ -86,9 +94,9 @@ export default class PvDiagram extends PvDiagramComponents {
   }
 
   get pressures(): Array<number> {
-    const startPressure = this.$store.getters.bottle.pressure;
-    const expansionMethod = this.$store.getters.expansionMethod;
-    const startVolume = this.$store.getters.piston.tdcVolume();
+    const startPressure = this.bottle.pressure;
+    const expansionMethod: Expansion = this.expansion;
+    const startVolume = this.pistonBore.tdcVolume();
 
     let pressures = [];
 
