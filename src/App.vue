@@ -6,14 +6,16 @@
         v-on:piston="onPistonUpdate"
         v-on:bottle="onBottleUpdate"
       />
-      <PvDiagram
-        :pistonBore="pistonBore"
-        :expansion="expansion"
-        :bottle="bottleSi"
-        :height="300"
-        :width="200"
-        class="pv"
-      />
+      <v-card class="grey lighten-3 background">
+        <PvDiagram
+          :pistonBore="pistonBore"
+          :expansion="expansion"
+          :bottle="bottleSi"
+          :height="300"
+          :width="200"
+          class="pv"
+        />
+      </v-card>
     </v-main>
   </v-app>
 </template>
@@ -119,14 +121,15 @@ export default class App extends AppProperties {
   width: 25%;
   float: left;
 }
-.results {
-  width: 75%;
-  float: left;
-}
 .pv {
-  width: 33%;
-  height: 33%;
+  width: 33vw;
+  height: 33vh;
   margin: 10px;
   float: left;
+}
+.background {
+  float: left;
+  width: 75%;
+  height: 100%;
 }
 </style>

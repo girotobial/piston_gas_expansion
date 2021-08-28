@@ -1,5 +1,5 @@
 <template>
-  <v-card elevation="3" class="pa-3 ma-3 primary">
+  <v-card elevation="3" class="ma-3 blue">
     <Plotly :data="trace" :layout="layout" :responsive="true" class="chart" />
   </v-card>
 </template>
