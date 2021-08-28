@@ -157,11 +157,11 @@ export default class Controls extends Vue {
 
   expansionMethod = "Adiabatic";
 
-  emitBottle() {
+  emitBottle(): void {
     this.$emit("bottle", this.bottle);
   }
 
-  emitPiston() {
+  emitPiston(): void {
     this.$emit("piston", this.piston);
   }
 

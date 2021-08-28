@@ -10,7 +10,6 @@ import { Plotly } from "vue-plotly";
 import { volume, pressure, atmosphericPressurePa } from "@/model/conversion";
 import { PistonBore } from "@/model/mechanics";
 import { Expansion } from "@/model/thermodynamics";
-import { Bottle } from "@/interfaces";
 
 const range = (start: number, end: number, step = 1): Array<number> => {
   let output = [];
@@ -65,7 +64,7 @@ export default class PvDiagram extends PvDiagramComponents {
     };
   }
 
-  minYAxis() {
+  minYAxis(): number {
     let minPressures = Math.min(...this.pressuresPSI);
     if (minPressures < 0) {
       return minPressures;

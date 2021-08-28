@@ -60,11 +60,11 @@ export default class App extends AppProperties {
 
   expansion = new Adiabatic();
 
-  onPistonUpdate(piston: Piston) {
+  onPistonUpdate(piston: Piston): void {
     this.piston = piston;
   }
 
-  onBottleUpdate(bottle: Bottle) {
+  onBottleUpdate(bottle: Bottle): void {
     this.bottle = bottle;
   }
 
@@ -99,11 +99,11 @@ export default class App extends AppProperties {
     };
   }
 
-  get pascals() {
+  get pascals(): number {
     return this.bottleSi.pressure;
   }
 
-  get workDone() {
+  get workDone(): number {
     return this.expansion.workDone(
       this.bottleSi.pressure,
       this.pistonBore.tdcVolume(),
