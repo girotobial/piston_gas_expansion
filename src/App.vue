@@ -111,31 +111,6 @@ export default class App extends AppProperties {
     );
   }
 }
-
-const foo = Vue.extend({
-  name: "App",
-
-  components: {
-    Controls,
-    PvDiagram,
-  },
-  computed: {
-    pascals() {
-      return this.$store.getters.bottle.pressure.toExponential(2);
-    },
-    workDone() {
-      const expansion = new Adiabatic();
-      const piston = this.$store.getters.piston;
-      const startPressure = this.$store.getters.bottle.pressure;
-
-      return expansion.workDone(
-        startPressure,
-        piston.tdcVolume(),
-        piston.bdcVolume()
-      );
-    },
-  },
-});
 </script>
 
 <style scoped>
