@@ -1,5 +1,7 @@
 <template>
-  <Plotly :data="trace" :layout="layout" :display-mode-bar="false" />
+  <v-card elevation="3" class="pa-3 ma-3 primary">
+    <Plotly :data="trace" :layout="layout" :responsive="true" class="chart" />
+  </v-card>
 </template>
 
 <script lang="ts">
@@ -46,14 +48,24 @@ export default class PvDiagram extends PvDiagramComponents {
       {
         x: this.volumesCmCubed,
         y: this.pressuresPSI,
+        fill: "tozeroy",
         type: "line",
+        marker: {
+          color: "white",
+          line: {
+            color: "white",
+          },
+        },
       },
     ];
   }
 
   get layout() {
     return {
-      title: "PV Diagram",
+      title: "Pressure-Volume Diagram",
+      autosize: true,
+      plot_bgcolor: "rgba(0, 0, 0, 0)",
+      paper_bgcolor: "rgba(0, 0, 0, 0)",
       xaxis: {
         title: "Cylinder Volume (cm^3)",
       },
@@ -77,7 +89,7 @@ export default class PvDiagram extends PvDiagramComponents {
     const min_vol = this.pistonBore.tdcVolume();
     const max_vol = this.pistonBore.bdcVolume();
 
-    const step = (max_vol - min_vol) / 200;
+    const step = (max_vol - min_vol) / 1000;
 
     return range(min_vol, max_vol, step);
   }
@@ -119,3 +131,10 @@ export default class PvDiagram extends PvDiagramComponents {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.chart {
+  height: 100%;
+  width: 100%;
+}
+</style>

@@ -6,13 +6,13 @@
         v-on:piston="onPistonUpdate"
         v-on:bottle="onBottleUpdate"
       />
-      <div class="results">{{ pascals }} Pa</div>
-      <div class="results">{{ workDone }} Joules</div>
       <PvDiagram
+        :pistonBore="pistonBore"
+        :expansion="expansion"
+        :bottle="bottleSi"
+        :height="300"
+        :width="200"
         class="pv"
-        v-bind:pistonBore="pistonBore"
-        v-bind:expansion="expansion"
-        v-bind:bottle="bottleSi"
       />
     </v-main>
   </v-app>
@@ -124,7 +124,9 @@ export default class App extends AppProperties {
   float: left;
 }
 .pv {
-  width: 75%;
+  width: 33%;
+  height: 33%;
+  margin: 10px;
   float: left;
 }
 </style>
