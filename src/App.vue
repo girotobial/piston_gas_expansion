@@ -8,7 +8,12 @@
       />
       <div class="results">{{ pascals }} Pa</div>
       <div class="results">{{ workDone }} Joules</div>
-      <PvDiagram class="pv" />
+      <PvDiagram
+        class="pv"
+        v-bind:pistonBore="pistonBore"
+        v-bind:expansion="expansion"
+        v-bind:bottle="bottleSi"
+      />
     </v-main>
   </v-app>
 </template>
