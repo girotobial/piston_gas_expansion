@@ -60,6 +60,7 @@ export default class PvDiagram extends PvDiagramComponents {
     ];
   }
 
+  //eslint-disable-next-line
   get layout() {
     return {
       title: "Pressure-Volume Diagram",
