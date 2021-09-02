@@ -1,4 +1,9 @@
-import { CircularCrossSection, SquareCrossSection } from "@/model/geometry";
+import {
+  CircularCrossSection,
+  degrees,
+  radians,
+  SquareCrossSection,
+} from "@/model/geometry";
 
 describe("CircularCrossSection", () => {
   it("constructs", () => {
@@ -24,5 +29,32 @@ describe("SquareCrossSection", () => {
     }),
     it("with width 8 it has an area of 64", () => {
       expect(new SquareCrossSection(8).area()).toBeCloseTo(64);
+    });
+});
+
+describe("radians", () => {
+  it("Converts 360° to 2π", () => {
+    expect(radians(360)).toBeCloseTo(2 * Math.PI);
+  }),
+    it("Converts 0° to 0π", () => {
+      expect(radians(0)).toBeCloseTo(0);
+    }),
+    it("Converts 90° to 1/2π", () => {
+      expect(radians(90)).toBeCloseTo(0.5 * Math.PI);
+    }),
+    it("Converts 180° to π", () => {
+      expect(radians(180)).toBeCloseTo(Math.PI);
+    });
+});
+
+describe("degress", () => {
+  it("Converts 2π to 360­°", () => {
+    expect(degrees(2 * Math.PI)).toBeCloseTo(360);
+  }),
+    it("Converts 0π to 0°", () => {
+      expect(degrees(0)).toBeCloseTo(0);
+    }),
+    it("Converts π to 180°", () => {
+      expect(degrees(Math.PI)).toBeCloseTo(180);
     });
 });
