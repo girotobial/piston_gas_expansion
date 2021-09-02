@@ -6,7 +6,7 @@
         v-on:piston="onPistonUpdate"
         v-on:bottle="onBottleUpdate"
       />
-      <v-card class="grey lighten-3 background">
+      <v-card class="grey lighten-3 background data">
         <PvDiagram
           :pistonBore="pistonBore"
           :expansion="expansion"
@@ -14,6 +14,14 @@
           :height="300"
           :width="200"
           class="pv"
+        />
+        <TorqueDiagram
+          :pistonBore="pistonBore"
+          :expansion="expansion"
+          :bottle="bottleSi"
+          :height="300"
+          :width="200"
+          class="tq"
         />
       </v-card>
     </v-main>
@@ -36,6 +44,7 @@ import {
 
 import Controls from "@/components/Controls.vue";
 import PvDiagram from "@/components/PvDiagram.vue";
+import TorqueDiagram from "@/components/TorqueDiagram.vue";
 import { Adiabatic } from "@/model/thermodynamics";
 
 const AppProperties = Vue.extend({
@@ -43,6 +52,7 @@ const AppProperties = Vue.extend({
   components: {
     Controls,
     PvDiagram,
+    TorqueDiagram,
   },
 });
 
@@ -115,21 +125,30 @@ export default class App extends AppProperties {
 }
 </script>
 
-<style scoped>
-.controls {
-  height: 100%;
-  width: 25%;
-  float: left;
-}
-.pv {
-  width: 33vw;
-  height: 33vh;
-  margin: 10px;
-  float: left;
-}
-.background {
-  float: left;
-  width: 75%;
-  height: 100%;
-}
+<style lang="sass" scoped>
+.data
+  height: 100%
+  width: 75%
+  float: left
+.controls
+  height: 100%
+  width: 25%
+  float: left
+
+.pv
+  width: 45%
+  height: 33vh
+  margin: 10px
+  float: left
+
+.tq
+  width: 45%
+  height: 33vh
+  margin: 10px
+  float: left
+
+.background
+  float: left
+  width: 75%
+  height: 100%
 </style>

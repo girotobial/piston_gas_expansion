@@ -1,4 +1,4 @@
-import { CrossSection } from "./geometry";
+import { CrossSection, radians } from "./geometry";
 
 export const pressureForce = (pressure: number, area: number): number => {
   return pressure * area;
@@ -33,5 +33,29 @@ export class PistonBore {
 
   compressionRatio(): number {
     return this.bdcVolume() / this.tdcVolume();
+  }
+
+  pistonTravel(crankAngle: number): number {
+    const crankAngleRadians = radians(crankAngle);
+    const proportionOfTravel = 0.5 * (-Math.cos(crankAngleRadians) + 1);
+    return proportionOfTravel * this.strokeLength;
+  }
+
+  torque(pressure: number, crankAngle: number): number {
+    const force = this.crossSection.area() * pressure;
+    const crankAngleRadians = radians(crankAngle);
+    const leverArm = Math.sin(crankAngleRadians) * 0.5 * this.strokeLength;
+    return force * leverArm;
+  }
+
+  volume(proportionOfTravel: number): number {
+    if (proportionOfTravel > 1 || proportionOfTravel < 0) {
+      throw new RangeError();
+    }
+
+    return (
+      this.crossSection.area() * this.strokeLength * proportionOfTravel +
+      this.tdcVolume()
+    );
   }
 }

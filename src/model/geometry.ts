@@ -36,3 +36,11 @@ export class SquareCrossSection implements CrossSection {
     return this.width * 4;
   }
 }
+
+export const radians = (degrees: number): number => {
+  return (degrees / 180) * Math.PI;
+};
+
+export const degrees = (radians: number): number => {
+  return (radians / Math.PI) * 180;
+};
