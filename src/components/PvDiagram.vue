@@ -93,7 +93,7 @@ export default class PvDiagram extends PvDiagramComponents {
   }
 
   get pressures(): Array<number> {
-    const startPressure = this.bottle.pressure;
+    const startPressure = this.bottle.pressure + atmosphericPressurePa;
     const expansionMethod: Expansion = this.expansion;
     const startVolume = this.pistonBore.tdcVolume();
 
