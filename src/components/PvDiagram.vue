@@ -12,21 +12,7 @@ import { Plotly } from "vue-plotly";
 import { volume, pressure, atmosphericPressurePa } from "@/model/conversion";
 import { PistonBore } from "@/model/mechanics";
 import { Expansion } from "@/model/thermodynamics";
-
-const range = (start: number, end: number, step = 1): Array<number> => {
-  let output = [];
-
-  if (typeof end === "undefined") {
-    end = start;
-    start = 0;
-  }
-
-  for (let i = start; i < end; i += step) {
-    output.push(i);
-  }
-
-  return output;
-};
+import { range } from "@/utils";
 
 const PvDiagramComponents = Vue.extend({
   props: {
@@ -133,9 +119,8 @@ export default class PvDiagram extends PvDiagramComponents {
 }
 </script>
 
-<style lang="scss" scoped>
-.chart {
-  height: 100%;
-  width: 100%;
-}
+<style lang="sass" scoped>
+.chart
+  height: 100%
+  width: 100%
 </style>
