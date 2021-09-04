@@ -45,7 +45,6 @@ export default class PvDiagram extends PvDiagramComponents {
       },
     ];
   }
-
   //eslint-disable-next-line
   get layout() {
     return {
@@ -55,6 +54,9 @@ export default class PvDiagram extends PvDiagramComponents {
       paper_bgcolor: "rgba(0, 0, 0, 0)",
       xaxis: {
         title: "Cylinder Volume (cm^3)",
+      },
+      font: {
+        color: "#f7f7f8",
       },
       yaxis: {
         title: "Cylinder Pressure (PSI)",

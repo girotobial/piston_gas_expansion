@@ -59,6 +59,9 @@ export default class TorqueDiagram extends TorqueDiagramProperties {
       xaxis: {
         title: "Crank Angle (°)",
       },
+      font: {
+        color: "#f7f7f8",
+      },
       yaxis: {
         title: "Crankshaft Torque (Nm)",
         range: [this.minYAxis(), Math.max(...this.torques)],
