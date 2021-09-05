@@ -42,7 +42,7 @@
             v-model="piston.tdcLength"
             min="0"
             max="50"
-            label="TDC Length (mm)"
+            label="Bump Clearance Length (mm)"
             thumb-label
             track-color="grey"
             @input="emitPiston"
