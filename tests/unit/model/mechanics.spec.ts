@@ -24,7 +24,7 @@ describe("PistonBore", () => {
   it("constructs", () => {
     const piston = new PistonBore(fakeCrossSection, 1, 2);
     expect(piston.crossSection).toEqual(fakeCrossSection);
-    expect(piston.tdcLength).toBe(1);
+    expect(piston.bumpClearanceLength).toBe(1);
     expect(piston.strokeLength).toBe(2);
   }),
     it("calculates volume of stroke", () => {
@@ -33,7 +33,7 @@ describe("PistonBore", () => {
     }),
     it("calculates TDC volume", () => {
       const piston = new PistonBore(fakeCrossSection, 1, 2);
-      expect(piston.tdcVolume()).toBe(3);
+      expect(piston.bumpClearanceVolume()).toBe(3);
     }),
     it("calculates BDC volume", () => {
       const piston = new PistonBore(fakeCrossSection, 1, 2);

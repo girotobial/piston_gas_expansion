@@ -39,7 +39,7 @@
       <v-row>
         <v-col>
           <v-slider
-            v-model="piston.tdcLength"
+            v-model="piston.bumpClearanceLength"
             min="0"
             max="50"
             label="Bump Clearance Length (mm)"
@@ -49,7 +49,7 @@
           >
             <template v-slot:append>
               <v-text-field
-                v-model="piston.tdcLength"
+                v-model="piston.bumpClearanceLength"
                 type="number"
                 class="mt-0 pt-0"
                 style="width: 60px"
@@ -151,7 +151,7 @@ export default class Controls extends Vue {
   piston: Piston = {
     shape: "Circular",
     boreWidth: 16,
-    tdcLength: 4,
+    bumpClearanceLength: 4,
     strokeLength: 10,
   };
 

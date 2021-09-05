@@ -75,7 +75,7 @@ export default class PvDiagram extends PvDiagramComponents {
   }
 
   get volumes(): Array<number> {
-    const min_vol = this.pistonBore.tdcVolume();
+    const min_vol = this.pistonBore.bumpClearanceVolume();
     const max_vol = this.pistonBore.bdcVolume();
 
     const step = (max_vol - min_vol) / 1000;
@@ -97,7 +97,7 @@ export default class PvDiagram extends PvDiagramComponents {
   get pressures(): Array<number> {
     const startPressure = this.bottle.pressure + atmosphericPressurePa;
     const expansionMethod: Expansion = this.expansion;
-    const startVolume = this.pistonBore.tdcVolume();
+    const startVolume = this.pistonBore.bumpClearanceVolume();
 
     let pressures = [];
 

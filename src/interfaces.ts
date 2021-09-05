@@ -4,7 +4,7 @@ export interface Bottle {
 }
 
 export interface Piston {
-  tdcLength: number;
+  bumpClearanceLength: number;
   strokeLength: number;
   boreWidth: number;
   shape: string;
