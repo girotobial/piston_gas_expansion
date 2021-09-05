@@ -33,7 +33,7 @@ export class Model {
 
   pressure(proportionOfTravel: number): number {
     const startPressure = this.bottle.pressure + atmosphericPressurePa;
-    const startVolume = this.piston.tdcVolume();
+    const startVolume = this.piston.bumpClearanceVolume();
     const endVolume = this.piston.volume(proportionOfTravel);
     return this.expansion.endPressure(startPressure, startVolume, endVolume);
   }

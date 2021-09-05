@@ -61,7 +61,7 @@ export default class App extends AppProperties {
   piston: Piston = {
     shape: "Circular",
     boreWidth: 16,
-    tdcLength: 4,
+    bumpClearanceLength: 4,
     strokeLength: 10,
   };
 
@@ -84,7 +84,9 @@ export default class App extends AppProperties {
     return {
       shape: this.piston.shape,
       boreWidth: length.millimetreToMetre(this.piston.boreWidth),
-      tdcLength: length.millimetreToMetre(this.piston.tdcLength),
+      bumpClearanceLength: length.millimetreToMetre(
+        this.piston.bumpClearanceLength
+      ),
       strokeLength: length.millimetreToMetre(this.piston.strokeLength),
     };
   }
@@ -99,7 +101,7 @@ export default class App extends AppProperties {
 
     return new PistonBore(
       crossSection,
-      this.pistonSi.tdcLength,
+      this.pistonSi.bumpClearanceLength,
       this.pistonSi.strokeLength
     );
   }
@@ -118,7 +120,7 @@ export default class App extends AppProperties {
   get workDone(): number {
     return this.expansion.workDone(
       this.bottleSi.pressure,
-      this.pistonBore.tdcVolume(),
+      this.pistonBore.bumpClearanceVolume(),
       this.pistonBore.bdcVolume()
     );
   }

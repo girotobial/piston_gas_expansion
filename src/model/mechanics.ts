@@ -6,16 +6,16 @@ export const pressureForce = (pressure: number, area: number): number => {
 
 export class PistonBore {
   crossSection: CrossSection;
-  tdcLength: number;
+  bumpClearanceLength: number;
   strokeLength: number;
 
   constructor(
     crossSection: CrossSection,
-    tdcLength: number,
+    bumpClearanceLength: number,
     strokeLength: number
   ) {
     this.crossSection = crossSection;
-    this.tdcLength = tdcLength;
+    this.bumpClearanceLength = bumpClearanceLength;
     this.strokeLength = strokeLength;
   }
 
@@ -23,16 +23,18 @@ export class PistonBore {
     return this.crossSection.area() * this.strokeLength;
   }
 
-  tdcVolume(): number {
-    return this.crossSection.area() * this.tdcLength;
+  bumpClearanceVolume(): number {
+    return this.crossSection.area() * this.bumpClearanceLength;
   }
 
   bdcVolume(): number {
-    return this.crossSection.area() * (this.tdcLength + this.strokeLength);
+    return (
+      this.crossSection.area() * (this.bumpClearanceLength + this.strokeLength)
+    );
   }
 
   compressionRatio(): number {
-    return this.bdcVolume() / this.tdcVolume();
+    return this.bdcVolume() / this.bumpClearanceVolume();
   }
 
   pistonTravel(crankAngle: number): number {
@@ -55,7 +57,7 @@ export class PistonBore {
 
     return (
       this.crossSection.area() * this.strokeLength * proportionOfTravel +
-      this.tdcVolume()
+      this.bumpClearanceVolume()
     );
   }
 }
