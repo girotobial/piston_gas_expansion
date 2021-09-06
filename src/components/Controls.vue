@@ -18,7 +18,7 @@
           <v-slider
             v-model="piston.strokeLength"
             min="0"
-            max="50"
+            max="250"
             label="Stroke Length (mm)"
             thumb-label
             track-color="grey"
@@ -41,7 +41,7 @@
           <v-slider
             v-model="piston.bumpClearanceLength"
             min="0"
-            max="50"
+            max="250"
             label="Bump Clearance Length (mm)"
             thumb-label
             track-color="grey"
@@ -64,7 +64,7 @@
           <v-slider
             v-model="piston.boreWidth"
             min="0"
-            max="50"
+            max="100"
             label="Bore Width (mm)"
             thumb-label
             track-color="grey"
@@ -134,7 +134,7 @@
           <v-slider
             v-model="bottle.capacity"
             min="0"
-            max="2000"
+            max="4000"
             label="Resevoir Capacity (mL)"
             thumb-label
             track-color="grey"
@@ -167,7 +167,7 @@ export default class Controls extends Vue {
   pistonShapeItems = ["Circular", "Square"];
 
   bottle: Bottle = {
-    pressure: 120,
+    pressure: 60,
     capacity: 2000,
   };
 
@@ -191,8 +191,8 @@ export default class Controls extends Vue {
 
   get bottlePressureColor(): string {
     const bottlePressure = this.bottle.pressure;
-    if (bottlePressure < 60) return "green";
-    if (bottlePressure < 150) return "orange";
+    if (bottlePressure <= 60) return "green";
+    if (bottlePressure <= 150) return "orange";
     return "red";
   }
 }
