@@ -59,7 +59,7 @@ export default class App extends AppProperties {
   };
 
   bottle: Bottle = {
-    pressure: 120,
+    pressure: 60,
     capacity: 2000,
   };
 
