@@ -4,7 +4,7 @@ export * as mechanics from "./mechanics";
 export * as thermodynamics from "./thermodynamics";
 
 import { PistonBore } from "./mechanics";
-import { Expansion } from "./thermodynamics";
+import { Expansion, Isobaric } from "./thermodynamics";
 import { Bottle } from "@/interfaces";
 import { atmosphericPressurePa } from "./conversion";
 
@@ -12,11 +12,18 @@ export class Model {
   protected _piston: PistonBore;
   protected _expansion: Expansion;
   protected _bottle: Bottle;
+  cutOffPoint: number;
 
-  constructor(piston: PistonBore, expansion: Expansion, bottle: Bottle) {
+  constructor(
+    piston: PistonBore,
+    expansion: Expansion,
+    bottle: Bottle,
+    cutOffPoint = 0.25
+  ) {
     this._piston = piston;
     this._expansion = expansion;
     this._bottle = bottle;
+    this.cutOffPoint = cutOffPoint;
   }
 
   get piston(): PistonBore {
@@ -33,9 +40,18 @@ export class Model {
 
   pressure(proportionOfTravel: number): number {
     const startPressure = this.bottle.pressure + atmosphericPressurePa;
-    const startVolume = this.piston.bumpClearanceVolume();
+    let startVolume = this.piston.bumpClearanceVolume();
     const endVolume = this.piston.volume(proportionOfTravel);
-    return this.expansion.endPressure(startPressure, startVolume, endVolume);
+    let expansion: Expansion;
+
+    if (proportionOfTravel < this.cutOffPoint) {
+      expansion = new Isobaric();
+    } else {
+      startVolume = this.piston.cutoffVolume(this.cutOffPoint);
+      expansion = this.expansion;
+    }
+
+    return expansion.endPressure(startPressure, startVolume, endVolume);
   }
 
   volume(proportionOfTravel: number): number {
