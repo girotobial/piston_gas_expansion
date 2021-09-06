@@ -50,7 +50,15 @@ describe("PistonBore", () => {
     expect(piston.cutoffVolume(1)).toBeCloseTo(piston.bdcVolume());
     expect(piston.cutoffVolume(0.5)).toBeCloseTo(6);
     expect(piston.cutoffVolume(0.25)).toBeCloseTo(4.5);
-    expect(piston.cutoffVolume(0.25)).toBeCloseTo(7.5);
+    expect(piston.cutoffVolume(0.75)).toBeCloseTo(7.5);
     expect(crossSection.areaCalled).toBe(true);
+  });
+  it("limits cut-off volume to be <= 1", () => {
+    const piston = new PistonBore(fakeCrossSection, 1, 2);
+    expect(piston.cutoffVolume(2)).toBeCloseTo(piston.cutoffVolume(1));
+  });
+  it("limits cut-off volume to be >= 0", () => {
+    const piston = new PistonBore(fakeCrossSection, 1, 2);
+    expect(piston.cutoffVolume(-1)).toBeCloseTo(piston.cutoffVolume(0));
   });
 });
