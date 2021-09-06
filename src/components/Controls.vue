@@ -167,8 +167,8 @@ export default class Controls extends Vue {
 
   get bottlePressureColor(): string {
     const bottlePressure = this.bottle.pressure;
-    if (bottlePressure < 60) return "green";
-    if (bottlePressure < 150) return "orange";
+    if (bottlePressure <= 60) return "green";
+    if (bottlePressure <= 150) return "orange";
     return "red";
   }
 }
