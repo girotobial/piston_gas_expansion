@@ -7,18 +7,9 @@
         v-on:bottle="onBottleUpdate"
       />
       <v-card class="grey lighten-3 background data">
-        <PvDiagram
-          :pistonBore="pistonBore"
-          :expansion="expansion"
-          :bottle="bottleSi"
-          :height="300"
-          :width="200"
-          class="pv"
-        />
+        <PvDiagram :model="this.model" :height="300" :width="200" class="pv" />
         <TorqueDiagram
-          :pistonBore="pistonBore"
-          :expansion="expansion"
-          :bottle="bottleSi"
+          :model="this.model"
           :height="300"
           :width="200"
           class="tq"
@@ -46,6 +37,7 @@ import Controls from "@/components/Controls.vue";
 import PvDiagram from "@/components/PvDiagram.vue";
 import TorqueDiagram from "@/components/TorqueDiagram.vue";
 import { Adiabatic } from "@/model/thermodynamics";
+import { Model } from "@/model";
 
 const AppProperties = Vue.extend({
   name: "App",
@@ -59,6 +51,7 @@ const AppProperties = Vue.extend({
 @Component
 export default class App extends AppProperties {
   piston: Piston = {
+    cutOffPoint: 25,
     shape: "Circular",
     boreWidth: 16,
     bumpClearanceLength: 4,
@@ -80,8 +73,18 @@ export default class App extends AppProperties {
     this.bottle = bottle;
   }
 
+  get model(): Model {
+    return new Model(
+      this.pistonBore,
+      this.expansion,
+      this.bottleSi,
+      this.pistonSi.cutOffPoint
+    );
+  }
+
   get pistonSi(): Piston {
     return {
+      cutOffPoint: this.piston.cutOffPoint / 100,
       shape: this.piston.shape,
       boreWidth: length.millimetreToMetre(this.piston.boreWidth),
       bumpClearanceLength: length.millimetreToMetre(

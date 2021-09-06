@@ -10,16 +10,12 @@ import Component from "vue-class-component";
 import { Plotly } from "vue-plotly";
 
 import { volume, pressure, atmosphericPressurePa } from "@/model/conversion";
-import { PistonBore } from "@/model/mechanics";
 import { Model } from "@/model";
 import { range } from "@/utils";
 
 const PvDiagramComponents = Vue.extend({
   props: {
-    pistonBore: PistonBore,
-    expansion: Object,
-    bottle: Object,
-    cutOffPoint: Number,
+    model: Model,
   },
 
   components: {
@@ -73,15 +69,6 @@ export default class PvDiagram extends PvDiagramComponents {
     } else {
       return 0;
     }
-  }
-
-  get model(): Model {
-    return new Model(
-      this.pistonBore,
-      this.expansion,
-      this.bottle,
-      this.cutOffPoint
-    );
   }
 
   get volumes(): Array<number> {

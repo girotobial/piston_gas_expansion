@@ -10,14 +10,11 @@ import Component from "vue-class-component";
 import { Plotly } from "vue-plotly";
 import { range } from "@/utils";
 
-import { PistonBore } from "@/model/mechanics";
 import { Model } from "@/model";
 
 const TorqueDiagramProperties = Vue.extend({
   props: {
-    pistonBore: PistonBore,
-    expansion: Object,
-    bottle: Object,
+    model: Model,
   },
 
   components: {
@@ -80,7 +77,7 @@ export default class TorqueDiagram extends TorqueDiagramProperties {
 
   get torques(): Array<number> {
     const torques = [];
-    const model = new Model(this.pistonBore, this.expansion, this.bottle);
+    const model = this.model;
     for (let angle of this.angles) {
       torques.push(model.torque(angle));
     }
