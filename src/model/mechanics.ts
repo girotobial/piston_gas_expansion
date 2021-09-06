@@ -60,4 +60,17 @@ export class PistonBore {
       this.bumpClearanceVolume()
     );
   }
+
+  cutoffVolume(cutoffPoint: number): number {
+    if (cutoffPoint < 0) {
+      cutoffPoint = 0;
+    }
+    if (cutoffPoint > 1) {
+      cutoffPoint = 1;
+    }
+    return (
+      this.bumpClearanceVolume() +
+      cutoffPoint * this.strokeLength * this.crossSection.area()
+    );
+  }
 }

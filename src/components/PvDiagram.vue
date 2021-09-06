@@ -10,15 +10,12 @@ import Component from "vue-class-component";
 import { Plotly } from "vue-plotly";
 
 import { volume, pressure, atmosphericPressurePa } from "@/model/conversion";
-import { PistonBore } from "@/model/mechanics";
-import { Expansion } from "@/model/thermodynamics";
+import { Model } from "@/model";
 import { range } from "@/utils";
 
 const PvDiagramComponents = Vue.extend({
   props: {
-    pistonBore: PistonBore,
-    expansion: Object,
-    bottle: Object,
+    model: Model,
   },
 
   components: {
@@ -75,12 +72,13 @@ export default class PvDiagram extends PvDiagramComponents {
   }
 
   get volumes(): Array<number> {
-    const min_vol = this.pistonBore.bumpClearanceVolume();
-    const max_vol = this.pistonBore.bdcVolume();
+    const travelRange = range(0, 1, 1 / 1000);
 
-    const step = (max_vol - min_vol) / 1000;
-
-    return range(min_vol, max_vol, step);
+    let volumes = [];
+    for (let travel of travelRange) {
+      volumes.push(this.model.volume(travel));
+    }
+    return volumes;
   }
 
   get volumesCmCubed(): Array<number> {
@@ -95,18 +93,12 @@ export default class PvDiagram extends PvDiagramComponents {
   }
 
   get pressures(): Array<number> {
-    const startPressure = this.bottle.pressure + atmosphericPressurePa;
-    const expansionMethod: Expansion = this.expansion;
-    const startVolume = this.pistonBore.bumpClearanceVolume();
+    const travelRange = range(0, 1, 1 / 1000);
 
     let pressures = [];
-
-    for (let volume of this.volumes) {
-      pressures.push(
-        expansionMethod.endPressure(startPressure, startVolume, volume)
-      );
+    for (let travel of travelRange) {
+      pressures.push(this.model.pressure(travel));
     }
-
     return pressures;
   }
 
