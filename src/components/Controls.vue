@@ -85,6 +85,29 @@
       <v-row>
         <v-col>
           <v-slider
+            v-model="piston.cutOffPoint"
+            min="0"
+            max="100"
+            label="Inlet valve cuttoff point (%)"
+            thumb-label
+            track-color="grey"
+            @input="emitPiston"
+          >
+            <template v-slot:append>
+              <v-text-field
+                v-model="piston.cutOffPoint"
+                type="number"
+                class="mt-0 pt-0"
+                style="width: 60px"
+                @input="emitPiston"
+              ></v-text-field>
+            </template>
+          </v-slider>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col>
+          <v-slider
             v-model="bottle.pressure"
             min="0"
             max="250"
@@ -149,6 +172,7 @@ export default class Controls extends Vue {
   };
 
   piston: Piston = {
+    cutOffPoint: 25,
     shape: "Circular",
     boreWidth: 16,
     bumpClearanceLength: 4,
