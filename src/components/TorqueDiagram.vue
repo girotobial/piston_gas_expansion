@@ -32,6 +32,7 @@ export default class TorqueDiagram extends TorqueDiagramProperties {
   get trace() {
     return [
       {
+        name: "Torque",
         x: this.angles,
         y: this.torques,
         fill: "tozeroy",
@@ -43,6 +44,22 @@ export default class TorqueDiagram extends TorqueDiagramProperties {
           },
         },
       },
+      {
+        name: "Mean Effective Torque",
+        x: this.angles,
+        y: this.mean_torque,
+        type: "line",
+        line: {
+          dash: "dot",
+          width: 2,
+        },
+        marker: {
+          color: "blue",
+          line: {
+            color: "blue",
+          },
+        },
+      },
     ];
   }
 
@@ -51,6 +68,7 @@ export default class TorqueDiagram extends TorqueDiagramProperties {
     return {
       title: "Torque vs Crank Angle",
       autosize: true,
+      uirevision: "true",
       plot_bgcolor: "rgba(0, 0, 0, 0)",
       paper_bgcolor: "rgba(0, 0, 0, 0)",
       xaxis: {
@@ -63,6 +81,7 @@ export default class TorqueDiagram extends TorqueDiagramProperties {
         title: "Crankshaft Torque (Nm)",
         range: [this.minYAxis(), Math.max(...this.torques)],
       },
+      legend: { orientation: "h" },
     };
   }
 
@@ -82,6 +101,19 @@ export default class TorqueDiagram extends TorqueDiagramProperties {
       torques.push(model.torque(angle));
     }
     return torques;
+  }
+
+  get mean_torque(): Array<number> {
+    const sumTorques: number = this.torques.reduce((a, b) => {
+      return a + b;
+    });
+    const numTorques = this.torques.length;
+    const mean_torque = sumTorques / numTorques;
+    const mean_torques: Array<number> = [];
+    this.angles.forEach(() => {
+      mean_torques.push(mean_torque);
+    });
+    return mean_torques;
   }
 }
 </script>
